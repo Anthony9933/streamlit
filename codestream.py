@@ -3,5 +3,5 @@ import pandas as pd
  
 st.write("""
 # Moda Antiga
-Bem-vidos!*
+Bem-vidos!
 """)
