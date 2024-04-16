@@ -20,7 +20,7 @@ def show_overview():
     # Objetivo do Projeto
     st.header("Objetivo do Projeto")
     st.write("O principal objetivo deste projeto é obter insights pela análise dos dados e gráficos criados. Isso inclui entender "
-             "o que os dados estão nos dizendo e, identificar e explorar padrões dos compradores "
+             "o que os dados estão nos dizendo, identificar e explorar padrões dos compradores "
              "prevendo e criando estratégias para aumentar as vendas.")
     
     # Como Utilizar
