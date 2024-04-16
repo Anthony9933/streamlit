@@ -26,12 +26,12 @@ def show_overview():
              "durante períodos de acesso antecipado.")
     
     # Como Utilizar
-      st.header("Como Utilizar")
-      st.write("Para explorar o projeto, você pode navegar por diferentes seções usando a barra lateral. As principais seções incluem:")
+    st.header("Como Utilizar")
+    st.write("Para explorar o projeto, você pode navegar por diferentes seções usando a barra lateral. As principais seções incluem:")
       
-      st.header("Conclusão")
-      st.write("Sinta-se à vontade para analisar o conjunto de dados, obter insights e tirar conclusões significativas a partir "
+    st.header("Conclusão")
+    st.write("Sinta-se à vontade para analisar o conjunto de dados, obter insights e tirar conclusões significativas a partir "
                "dos dados apresentados. Para análises específicas ou dúvidas, novos recursos podem ser incorporados com base nos "
                "objetivos do seu projeto.")
   
-      st.write("Aproveite a exploração do projeto de Avaliações de Jogos no Steam!")
+    st.write("Aproveite a exploração do projeto de Avaliações de Jogos no Steam!")
