@@ -8,10 +8,9 @@ def show_overview():
     
     # Visão Geral do Projeto
     st.header("Visão Geral do Projeto")
-    st.write("Bem-vindo ao projeto de Avaliações de Jogos no Steam! Este projeto gira em torno da análise e apresentação "
-             "de avaliações de jogos na plataforma Steam. O conjunto de dados contém várias colunas fornecendo insights "
-             "sobre as avaliações dos usuários, incluindo data de postagem, reações engraçadas, reações úteis, horas jogadas, "
-             "status de acesso antecipado, recomendações e a própria análise escrita.")
+    st.write("Bem-vindo ao projeto de Visualização de dados da loja Moda Antiga! Este projeto gira em torno da análise e apresentação "
+             "de dados do estoque e de vendas de produtos da loja Moda Antiga. O conjunto de dados contém várias colunas fornecendo insights "
+             "sobre os produtos e informações relativas a vendas, incluindo data, produtos mais vendidos, melhores e piores meses de venda," ")
     
     # Como Funciona
     st.header("Como Funciona")
