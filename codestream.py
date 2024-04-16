@@ -14,7 +14,7 @@ def show_overview():
     
     # Como Funciona
     st.header("Como Funciona")
-    st.write("O projeto utiliza um conjunto de dados com informações sobre avaliações de jogos. Aqui está uma breve visão "
+    st.write("O projeto utiliza um conjunto de dados com informações sobre as vendas e o estoque da loja. Aqui está uma breve visão "
              "geral dos principais componentes:")
     
     # Objetivo do Projeto
