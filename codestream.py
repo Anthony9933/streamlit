@@ -34,3 +34,6 @@ def show_overview():
                "objetivos do seu projeto.")
   
     st.write("Aproveite a exploração do projeto de Avaliações de Jogos no Steam!")
+# Página de Visão Geral
+if page == "Visão Geral":
+    show_overview()
