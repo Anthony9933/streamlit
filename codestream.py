@@ -56,13 +56,11 @@ def show_filters_data():
 
     # Calcular o lucro provável
     # Criar um novo DataFrame contendo apenas os itens que contêm "t-shirt"
-    df_tshirts = df[df['DESCRICAO'].str.contains('T-SHIRTS', case=False, na=False)]
     df_tshirt = df[df['DESCRICAO'].str.contains('T-SHIRT', case=False, na=False)]
     df_camisa = df[df['DESCRICAO'].str.contains('CAMISA', case=False, na=False)]
     df_cropped = df[df['DESCRICAO'].str.contains('CROPPED', case=False, na=False)]
     df_bermuda = df[df['DESCRICAO'].str.contains('BERMUDA', case=False, na=False)]
     df_blusa = df[df['DESCRICAO'].str.contains('BLUSA', case=False, na=False)]
-    df_shorts = df[df['DESCRICAO'].str.contains('SHORTS', case=False, na=False)]
     df_short = df[df['DESCRICAO'].str.contains('SHORT', case=False, na=False)]
     df_calça = df[df['DESCRICAO'].str.contains('CALCA', case=False, na=False)]
     df_saia = df[df['DESCRICAO'].str.contains('SAIA', case=False, na=False)]
