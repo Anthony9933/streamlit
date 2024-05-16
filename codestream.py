@@ -125,6 +125,3 @@ elif page == "Filtros e Dados":
 
 #elif page == "Número de Acidentes por Hora do Dia":
     #show_accidents_by_hour()
-# Página de Visão Geral
-if page == "Visão Geral":
-    show_overview()
