@@ -56,19 +56,19 @@ def show_filters_data():
 
     # Calcular o lucro provável
     # Criar um novo DataFrame contendo apenas os itens que contêm "t-shirt"
-    df_tshirts = df[df['DESCRIÇÃO'].str.contains('T-SHIRT', case=False, na=False)]
-    df_camisa = df[df['DESCRIÇÃO'].str.contains('CAMISA', case=False, na=False)]
-    df_blusa = df[df['DESCRIÇÃO'].str.contains('BLUSA', case=False, na=False)]
-    df_cropped = df[df['DESCRIÇÃO'].str.contains('CROPPED', case=False, na=False)]
-    df_bermuda = df[df['DESCRIÇÃO'].str.contains('BERMUDA', case=False, na=False)]
-    df_blusa = df[df['DESCRIÇÃO'].str.contains('BLUSA', case=False, na=False)]
-    df_shorts = df[df['DESCRIÇÃO'].str.contains('SHORTS', case=False, na=False)]
-    df_short = df[df['DESCRIÇÃO'].str.contains('SHORT', case=False, na=False)]
-    df_calça = df[df['DESCRIÇÃO'].str.contains('CALCA', case=False, na=False)]
-    df_saia = df[df['DESCRIÇÃO'].str.contains('SAIA', case=False, na=False)]
-    df_blazer = df[df['DESCRIÇÃO'].str.contains('BLAZER', case=False, na=False)]
-    df_colete = df[df['DESCRIÇÃO'].str.contains('COLETE', case=False, na=False)]
-    df_jaqueta = df[df['DESCRIÇÃO'].str.contains('JAQUETA', case=False, na=False)]
+    df_tshirts = df[df['DESCRICAO'].str.contains('T-SHIRT', case=False, na=False)]
+    df_camisa = df[df['DESCRICAO'].str.contains('CAMISA', case=False, na=False)]
+    df_blusa = df[df['DESCRICAO'].str.contains('BLUSA', case=False, na=False)]
+    df_cropped = df[df['DESCRICAO'].str.contains('CROPPED', case=False, na=False)]
+    df_bermuda = df[df['DESCRICAO'].str.contains('BERMUDA', case=False, na=False)]
+    df_blusa = df[df['DESCRICAO'].str.contains('BLUSA', case=False, na=False)]
+    df_shorts = df[df['DESCRICAO'].str.contains('SHORTS', case=False, na=False)]
+    df_short = df[df['DESCRICAO'].str.contains('SHORT', case=False, na=False)]
+    df_calça = df[df['DESCRICAO'].str.contains('CALCA', case=False, na=False)]
+    df_saia = df[df['DESCRICAO'].str.contains('SAIA', case=False, na=False)]
+    df_blazer = df[df['DESCRICAO'].str.contains('BLAZER', case=False, na=False)]
+    df_colete = df[df['DESCRICAO'].str.contains('COLETE', case=False, na=False)]
+    df_jaqueta = df[df['DESCRICAO'].str.contains('JAQUETA', case=False, na=False)]
 
 
     
