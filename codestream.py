@@ -55,6 +55,23 @@ def show_filters_data():
 
 
     # Calcular o lucro provável
+    # Criar um novo DataFrame contendo apenas os itens que contêm "t-shirt"
+    df_tshirts = df[df['DESCRIÇÃO'].str.contains('T-SHIRT', case=False, na=False)]
+    df_camisa = df[df['DESCRIÇÃO'].str.contains('CAMISA', case=False, na=False)]
+    df_blusa = df[df['DESCRIÇÃO'].str.contains('BLUSA', case=False, na=False)]
+    df_cropped = df[df['DESCRIÇÃO'].str.contains('CROPPED', case=False, na=False)]
+    df_bermuda = df[df['DESCRIÇÃO'].str.contains('BERMUDA', case=False, na=False)]
+    df_blusa = df[df['DESCRIÇÃO'].str.contains('BLUSA', case=False, na=False)]
+    df_shorts = df[df['DESCRIÇÃO'].str.contains('SHORTS', case=False, na=False)]
+    df_short = df[df['DESCRIÇÃO'].str.contains('SHORT', case=False, na=False)]
+    df_calça = df[df['DESCRIÇÃO'].str.contains('CALCA', case=False, na=False)]
+    df_saia = df[df['DESCRIÇÃO'].str.contains('SAIA', case=False, na=False)]
+    df_blazer = df[df['DESCRIÇÃO'].str.contains('BLAZER', case=False, na=False)]
+    df_colete = df[df['DESCRIÇÃO'].str.contains('COLETE', case=False, na=False)]
+    df_jaqueta = df[df['DESCRIÇÃO'].str.contains('JAQUETA', case=False, na=False)]
+
+
+    
     df['P/VENDA'] = pd.to_numeric(df['P/VENDA'], errors='coerce')
     df['P/ CUSTO'] = pd.to_numeric(df['P/ CUSTO'], errors='coerce')
     df['LUCRO'] = df['P/VENDA'] - df['P/ CUSTO']
