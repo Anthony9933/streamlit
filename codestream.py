@@ -89,6 +89,10 @@ def plot_graphs(df, descricao):
     # Gráfico de barras para comparar o lucro provável de cada item
     fig3 = px.bar(df, x='DESCRICAO', y='LUCRO', title=f'Lucro provável de cada {descricao}')
     st.plotly_chart(fig3)
+    
+# Página de Visão Geral
+if page == "Visão Geral":
+    show_overview()
 
 # Página de Filtros e Dados
 elif page == "Filtros e Dados":
@@ -96,13 +100,6 @@ elif page == "Filtros e Dados":
     plot_graphs(df_tshirts, 'T-Shirt')
     plot_graphs(df_camisa, 'Camisa')
     # Adicione mais chamadas para plot_graphs aqui para os outros DataFrames
-
-
-
-# Página de Visão Geral
-if page == "Visão Geral":
-    show_overview()
-
 # Página de Filtros e Dados
 #elif page == "Filtros e Dados":
     #show_filters_data()
