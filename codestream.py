@@ -69,44 +69,26 @@ def show_filters_data():
     df_blazer = df[df['DESCRICAO'].str.contains('BLAZER', case=False, na=False)]
     df_colete = df[df['DESCRICAO'].str.contains('COLETE', case=False, na=False)]
     df_jaqueta = df[df['DESCRICAO'].str.contains('JAQUETA', case=False, na=False)]
-
-
     
-def plot_graphs(df, descricao):
-    if not df.empty:
-        # Calcular o lucro provável
-        df['P/VENDA'] = pd.to_numeric(df['P/VENDA'], errors='coerce')
-        df['P/ CUSTO'] = pd.to_numeric(df['P/ CUSTO'], errors='coerce')
-        df['LUCRO'] = df['P/VENDA'] - df['P/ CUSTO']
-
-        # Gráfico de barras para comparar o estoque de cada item
-        fig1 = px.bar(df, x='DESCRICAO', y='ESTOQUE', title=f'Estoque de cada {descricao}')
-        st.plotly_chart(fig1)
-
-        # Gráfico de dispersão para analisar o preço de venda versus o preço de custo
-        fig2 = px.scatter(df, x='P/ CUSTO', y='P/VENDA', color='DESCRICAO', title=f'Preço de venda vs Preço de custo de cada {descricao}')
-        st.plotly_chart(fig2)
-
-        # Gráfico de barras para comparar o lucro provável de cada item
-        fig3 = px.bar(df, x='DESCRICAO', y='LUCRO', title=f'Lucro provável de cada {descricao}')
-        st.plotly_chart(fig3)
-    else:
-        st.write(f'Não foram encontrados itens que correspondam à descrição "{descricao}"')
-
+    fig, axs = plt.subplots(2, 2, figsize=(15, 10))
+    axs[0, 0].hist(df_tshirts['PROFIT'], bins=20, color='blue', alpha=0.7)
+    axs[0, 0].set_title('T-Shirts')
+    axs[0, 1].hist(df_camisa['PROFIT'], bins=20, color='green', alpha=0.7)
+    axs[0, 1].set_title('Camisas')
+    axs[1, 0].hist(df_cropped['PROFIT'], bins=20, color='red', alpha=0.7)
+    axs[1, 0].set_title('Cropped')
+    axs[1, 1].hist(df_bermuda['PROFIT'], bins=20, color='purple', alpha=0.7)
+    axs[1, 1].set_title('Bermudas')
+    plt.tight_layout()
+    st.pyplot(fig)
     
 # Página de Visão Geral
 if page == "Visão Geral":
     show_overview()
 
-# Página de Filtros e Dados
+
 elif page == "Filtros e Dados":
     show_filters_data()
-    plot_graphs(df_tshirts, 'T-Shirts')
-    plot_graphs(df_camisa, 'Camisa')
-    # Adicione mais chamadas para plot_graphs aqui para os outros DataFrames
-# Página de Filtros e Dados
-#elif page == "Filtros e Dados":
-    #show_filters_data()
     
 # Página de Filtros de acidentes
 #elif page == "Gráficos de Acidentes e Casualidades ao Longo do Tempo":
