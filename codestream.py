@@ -72,7 +72,7 @@ def show_filters_data():
     
     fig, axs = plt.subplots(2, 2, figsize=(15, 10))
     axs[0, 0].hist(df_tshirts['DESCRICAO'], bins=20, color='blue', alpha=0.7)
-    axs[0, 0].set_title('T-Shirts')
+    axs[0, 1].set_title('T-Shirts')
     axs[0, 1].hist(df_camisa['DESCRICAO'], bins=20, color='green', alpha=0.7)
     axs[0, 1].set_title('Camisas')
     axs[1, 0].hist(df_cropped['DESCRICAO'], bins=20, color='red', alpha=0.7)
