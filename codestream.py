@@ -49,16 +49,17 @@ def show_filters_data():
     df['LUCRO'] = df['P/VENDA'] - df['P/ CUSTO']
     
     # Gráfico de barras para comparar o estoque de cada item
+    # Gráfico de barras para comparar o estoque de cada item
     fig1 = px.bar(df, x='DESCRICAO', y='ESTOQUE', title='Estoque de cada item')
-    fig1.show()
+    st.plotly_chart(fig1)
     
     # Gráfico de dispersão para analisar o preço de venda versus o preço de custo
     fig2 = px.scatter(df, x='P/ CUSTO', y='P/VENDA', color='DESCRICAO', title='Preço de venda vs Preço de custo')
-    fig2.show()
+    st.plotly_chart(fig2)
     
     # Gráfico de barras para comparar o lucro provável de cada item
     fig3 = px.bar(df, x='DESCRICAO', y='LUCRO', title='Lucro provável de cada item')
-    fig3.show()
+    st.plotly_chart(fig3)
 
 
 # Página de Visão Geral
