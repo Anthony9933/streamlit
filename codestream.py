@@ -42,6 +42,17 @@ def show_filters_data():
     df = pd.read_csv('dados.csv', encoding='latin-1', delimiter=';')
     st.header('Gráficos')
     st.dataframe(df)
+    # Criar uma nova coluna 'Categoria'
+    #df['Categoria'] = df['DESCRIÇÃO']
+    
+    # Lista de tipos de t-shirts
+    #tipos_tshirts = ['t-shirt tipo1', 't-shirt tipo2', 't-shirt tipo3']  # substitua pelos nomes reais dos tipos de t-shirts
+    
+    # Agrupar todos os tipos de t-shirts em uma única categoria
+    #df.loc[df['Categoria'].isin(tipos_tshirts), 'Categoria'] = 'T-Shirt'
+    
+    # Agora você pode usar a coluna 'Categoria' para suas análises
+
 
     # Calcular o lucro provável
     df['P/VENDA'] = pd.to_numeric(df['P/VENDA'], errors='coerce')
