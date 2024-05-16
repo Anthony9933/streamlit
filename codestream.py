@@ -97,7 +97,7 @@ if page == "Visão Geral":
 # Página de Filtros e Dados
 elif page == "Filtros e Dados":
     show_filters_data()
-    plot_graphs(df_tshirts, 'T-Shirt')
+    plot_graphs(df_tshirts, 'T-Shirts')
     plot_graphs(df_camisa, 'Camisa')
     # Adicione mais chamadas para plot_graphs aqui para os outros DataFrames
 # Página de Filtros e Dados
