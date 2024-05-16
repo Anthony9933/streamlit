@@ -72,7 +72,7 @@ def show_filters_data():
 
 
     
-    def plot_graphs(df, descricao):
+def plot_graphs(df, descricao):
     # Calcular o lucro provável
     df['P/VENDA'] = pd.to_numeric(df['P/VENDA'], errors='coerce')
     df['P/ CUSTO'] = pd.to_numeric(df['P/ CUSTO'], errors='coerce')
