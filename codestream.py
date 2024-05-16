@@ -72,22 +72,31 @@ def show_filters_data():
 
 
     
+    def plot_graphs(df, descricao):
+    # Calcular o lucro provável
     df['P/VENDA'] = pd.to_numeric(df['P/VENDA'], errors='coerce')
     df['P/ CUSTO'] = pd.to_numeric(df['P/ CUSTO'], errors='coerce')
     df['LUCRO'] = df['P/VENDA'] - df['P/ CUSTO']
-    
+
     # Gráfico de barras para comparar o estoque de cada item
-    # Gráfico de barras para comparar o estoque de cada item
-    fig1 = px.bar(df, x='DESCRICAO', y='ESTOQUE', title='Estoque de cada item')
+    fig1 = px.bar(df, x='DESCRICAO', y='ESTOQUE', title=f'Estoque de cada {descricao}')
     st.plotly_chart(fig1)
-    
+
     # Gráfico de dispersão para analisar o preço de venda versus o preço de custo
-    fig2 = px.scatter(df, x='P/ CUSTO', y='P/VENDA', color='DESCRICAO', title='Preço de venda vs Preço de custo')
+    fig2 = px.scatter(df, x='P/ CUSTO', y='P/VENDA', color='DESCRICAO', title=f'Preço de venda vs Preço de custo de cada {descricao}')
     st.plotly_chart(fig2)
-    
+
     # Gráfico de barras para comparar o lucro provável de cada item
-    fig3 = px.bar(df, x='DESCRICAO', y='LUCRO', title='Lucro provável de cada item')
+    fig3 = px.bar(df, x='DESCRICAO', y='LUCRO', title=f'Lucro provável de cada {descricao}')
     st.plotly_chart(fig3)
+
+# Página de Filtros e Dados
+elif page == "Filtros e Dados":
+    show_filters_data()
+    plot_graphs(df_tshirts, 'T-Shirt')
+    plot_graphs(df_camisa, 'Camisa')
+    # Adicione mais chamadas para plot_graphs aqui para os outros DataFrames
+
 
 
 # Página de Visão Geral
@@ -95,8 +104,8 @@ if page == "Visão Geral":
     show_overview()
 
 # Página de Filtros e Dados
-elif page == "Filtros e Dados":
-    show_filters_data()
+#elif page == "Filtros e Dados":
+    #show_filters_data()
     
 # Página de Filtros de acidentes
 #elif page == "Gráficos de Acidentes e Casualidades ao Longo do Tempo":
