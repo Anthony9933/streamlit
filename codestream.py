@@ -44,6 +44,8 @@ def show_filters_data():
     st.dataframe(df)
 
     # Calcular o lucro provável
+    df['P/VENDA'] = pd.to_numeric(df['P/VENDA'], errors='coerce')
+    df['P/ CUSTO'] = pd.to_numeric(df['P/ CUSTO'], errors='coerce')
     df['LUCRO'] = df['P/VENDA'] - df['P/ CUSTO']
     
     # Gráfico de barras para comparar o estoque de cada item
