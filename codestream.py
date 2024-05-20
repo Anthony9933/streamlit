@@ -47,7 +47,7 @@ def show_filters_data():
     df_CROPPED = pd.read_csv('CROPPED - Página1.csv', encoding='latin-1', delimiter=',')
     df_SAIA = pd.read_csv('SAIA - Página1.csv', encoding='latin-1', delimiter=',') 
     df_SHORT = pd.read_csv('SHORT - Página1.csv', encoding='latin-1', delimiter=',') 
-    df_T-SHIRT = pd.read_csv('T-SHIRT - Página1.csv', encoding='latin-1', delimiter=',') 
+    df_TSHIRT = pd.read_csv('T-SHIRT - Página1.csv', encoding='latin-1', delimiter=',') 
     st.header('Gráficos')
     st.dataframe(df)
     # Criar uma nova coluna 'Categoria'
