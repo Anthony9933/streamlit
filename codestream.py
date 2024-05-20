@@ -39,7 +39,15 @@ def show_overview():
 
 def show_filters_data():
     st.header("Filtros e Dados")
-    df = pd.read_csv('BLAZER - Página1.csv', encoding='latin-1', delimiter=',')
+    df1 = pd.read_csv('BLAZER - Página1.csv', encoding='latin-1', delimiter=',')
+    df2 = pd.read_csv('BERMUDA - Página1.csv', encoding='latin-1', delimiter=',')
+    df3 = pd.read_csv('BLUSA - Página1.csv', encoding='latin-1', delimiter=',')
+    df4 = pd.read_csv('CALÇA - Página1.csv', encoding='latin-1', delimiter=',')
+    df5 = pd.read_csv('CAMISA - Página1.csv', encoding='latin-1', delimiter=',')
+    df6 = pd.read_csv('CROPPED - Página1.csv', encoding='latin-1', delimiter=',')
+    df7 = pd.read_csv('SAIA - Página1.csv', encoding='latin-1', delimiter=',') 
+    df8 = pd.read_csv('SHORT - Página1.csv', encoding='latin-1', delimiter=',') 
+    df9 = pd.read_csv('T-SHIRT - Página1.csv', encoding='latin-1', delimiter=',') 
     st.header('Gráficos')
     st.dataframe(df)
     # Criar uma nova coluna 'Categoria'
