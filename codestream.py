@@ -48,7 +48,7 @@ def show_filters_data():
     st.header('Gráficos')
     st.dataframe(df)
 ###
-     # Lista de arquivos CSV
+ # Lista de arquivos CSV
     arquivos = ['dados (8).csv']
     
     # Lendo e concatenando os DataFrames de todos os arquivos CSV
@@ -64,11 +64,25 @@ def show_filters_data():
     if 'Data' not in df.columns:
         st.error("A coluna 'Data' não foi encontrada nos arquivos CSV.")
         return
-       
-    # Convertendo a coluna de data para datetime
-    df['Data'] = pd.to_datetime(df['Data'], format='%d/%m/%Y')
     
-    # Agrupando as vendas por data (assumindo que a coluna de vendas se chama 'Vendas')
+    # Convertendo a coluna de data para datetime, lidando com erros
+    df['Data'] = pd.to_datetime(df['Data'], format='%d/%m/%Y', errors='coerce')
+    
+    # Identificar e exibir valores inválidos na coluna 'Data'
+    invalid_dates = df[df['Data'].isna()]
+    if not invalid_dates.empty:
+        st.warning("Foram encontrados valores inválidos na coluna 'Data'.")
+        st.dataframe(invalid_dates)
+    
+    # Filtrando linhas com valores válidos na coluna 'Data'
+    df = df.dropna(subset=['Data'])
+    
+    # Verifique se a coluna 'Vendas' está presente
+    if 'Vendas' not in df.columns:
+        st.error("A coluna 'Vendas' não foi encontrada nos arquivos CSV.")
+        return
+    
+    # Agrupando as vendas por data
     vendas_por_data = df.groupby('Data')['Vendas'].sum().reset_index()
     
     # Criando o gráfico de evolução de vendas ao longo do tempo
