@@ -47,8 +47,10 @@ def show_filters_data():
     
     st.header('Gráficos')
     st.dataframe(df)
-###
- # Lista de arquivos CSV
+
+###FASE DE TESTE PARA GRAFICOS###
+
+   # Lista de arquivos CSV
     arquivos = ['dados (8).csv']
     
     # Lendo e concatenando os DataFrames de todos os arquivos CSV
@@ -65,7 +67,7 @@ def show_filters_data():
         st.error("A coluna 'Data' não foi encontrada nos arquivos CSV.")
         return
     
-    # Convertendo a coluna de data para datetime, lidando com erros
+    # Convertendo a coluna de data para datetime, lidando com erros, e extraindo mês e ano
     df['Data'] = pd.to_datetime(df['Data'], format='%d/%m/%Y', errors='coerce')
     
     # Identificar e exibir valores inválidos na coluna 'Data'
@@ -77,16 +79,22 @@ def show_filters_data():
     # Filtrando linhas com valores válidos na coluna 'Data'
     df = df.dropna(subset=['Data'])
     
+    # Extraindo mês e ano
+    df['MesAno'] = df['Data'].dt.to_period('M').dt.to_timestamp()
+    
     # Verifique se a coluna 'Vendas' está presente
     if 'Vendas' not in df.columns:
         st.error("A coluna 'Vendas' não foi encontrada nos arquivos CSV.")
         return
     
-    # Agrupando as vendas por data
-    vendas_por_data = df.groupby('Data')['Vendas'].sum().reset_index()
+    # Agrupando as vendas por mês e ano
+    vendas_por_mes = df.groupby('MesAno')['Vendas'].sum().reset_index()
+    
+    # Ordenando os dados por data
+    vendas_por_mes = vendas_por_mes.sort_values('MesAno')
     
     # Criando o gráfico de evolução de vendas ao longo do tempo
-    fig = px.line(vendas_por_data, x='Data', y='Vendas', title='Evolução de Vendas ao Longo do Tempo')
+    fig = px.line(vendas_por_mes, x='MesAno', y='Vendas', title='Evolução de Vendas ao Longo do Tempo')
     
     # Exibindo o gráfico e os dados
     st.header('Gráficos')
