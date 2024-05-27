@@ -37,7 +37,7 @@ def show_overview():
 
 def show_filters_data():
     st.header("Filtros e Dados")
-    st.warning("ESTAMOS EM FASE DE TESTES! ASS: DESENVOLVEDORES")
+    st.warning("⚠️ ESTAMOS EM FASE DE TESTES! ASS: DESENVOLVEDORES ⚠️")
     # Lista de arquivos CSV
     arquivos = ['BLAZER - Página1.csv', 'BERMUDA - Página1.csv', 'BLUSA - Página1.csv', 'CALÇA - Página1.csv', 'CAMISA - Página1.csv', 'CROPPED - Página1.csv', 'SAIA - Página1.csv', 'SHORT - Página1.csv', 'T-SHIRT - Página1.csv']
     
