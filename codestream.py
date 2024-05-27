@@ -101,6 +101,66 @@ def show_filters_data():
     st.plotly_chart(fig)
     st.dataframe(df)
 
+#####
+
+       # Lista de arquivos CSV
+    arquivos = ['BLAZER - Página1.csv', 'BERMUDA - Página1.csv', 'BLUSA - Página1.csv', 'CALÇA - Página1.csv', 'CAMISA - Página1.csv', 'CROPPED - Página1.csv', 'SAIA - Página1.csv', 'SHORT - Página1.csv', 'T-SHIRT - Página1.csv']
+    
+    # Lendo e concatenando os DataFrames de todos os arquivos CSV
+    dfs = []
+    for arquivo in arquivos:
+        df_temp = pd.read_csv(arquivo, encoding='latin-1', delimiter=',')
+        dfs.append(df_temp)
+    
+    df = pd.concat(dfs)
+    
+    # Criar uma nova coluna 'Categoria'
+    df['Categoria'] = 'Outros'
+    
+    categorias = {
+        'T-SHIRT': 'T-Shirt',
+        'CAMISA': 'Camisa',
+        'CROPPED': 'Cropped',
+        'BERMUDA': 'Bermuda',
+        'BLUSA': 'Blusa',
+        'SHORT': 'Short',
+        'CALÇA': 'Calça',
+        'SAIA': 'Saia',
+        'BLAZER': 'Blazer',
+        'COLETE': 'Colete',
+        'JAQUETA': 'Jaqueta'
+    }
+    
+    # Agrupar categorias
+    for chave, valor in categorias.items():
+        df.loc[df['DESCRICAO'].str.contains(chave, case=False, na=False), 'Categoria'] = valor
+    
+    # Filtrando os dados para cada categoria
+    df_tshirt = df[df['Categoria'] == 'T-Shirt']
+    df_camisa = df[df['Categoria'] == 'Camisa']
+    df_cropped = df[df['Categoria'] == 'Cropped']
+    df_bermuda = df[df['Categoria'] == 'Bermuda']
+    
+    # Criando histogramas para algumas categorias
+    fig, axs = plt.subplots(2, 2, figsize=(15, 10))
+    
+    axs[0, 0].hist(df_tshirt['DESCRICAO'], bins=20, color='blue', alpha=0.7)
+    axs[0, 0].set_title('T-Shirts')
+    
+    axs[0, 1].hist(df_camisa['DESCRICAO'], bins=20, color='green', alpha=0.7)
+    axs[0, 1].set_title('Camisas')
+    
+    axs[1, 0].hist(df_cropped['DESCRICAO'], bins=20, color='red', alpha=0.7)
+    axs[1, 0].set_title('Cropped')
+    
+    axs[1, 1].hist(df_bermuda['DESCRICAO'], bins=20, color='purple', alpha=0.7)
+    axs[1, 1].set_title('Bermudas')
+    
+    plt.tight_layout()
+    st.pyplot(fig)
+
+
+
 # Página de Visão Geral
 if page == "Visão Geral":
     show_overview()
