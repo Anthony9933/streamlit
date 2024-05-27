@@ -47,6 +47,21 @@ def show_filters_data():
     
     st.header('Gráficos')
     st.dataframe(df)
+###
+       
+    # Convertendo a coluna de data para datetime
+    df['Data'] = pd.to_datetime(df['Data'], format='%d/%m/%Y')
+    
+    # Agrupando as vendas por data (assumindo que a coluna de vendas se chama 'Vendas')
+    vendas_por_data = df.groupby('Data')['Vendas'].sum().reset_index()
+    
+    # Criando o gráfico de evolução de vendas ao longo do tempo
+    fig = px.line(vendas_por_data, x='Data', y='Vendas', title='Evolução de Vendas ao Longo do Tempo')
+    
+    # Exibindo o gráfico e os dados
+    st.header('Gráficos')
+    st.plotly_chart(fig)
+    st.dataframe(df)
 
 # Página de Visão Geral
 if page == "Visão Geral":
