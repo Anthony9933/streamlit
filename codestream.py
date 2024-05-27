@@ -38,7 +38,7 @@ def show_overview():
 def show_filters_data():
     st.header("Filtros e Dados")
     df_blazer = pd.read_csv('BLAZER - Página1.csv', encoding='latin-1', delimiter=',')
-    df = pd.read_csv('BLAZER - Página1.csv', encoding='latin-1', delimiter=',')
+    df = pd.read_csv('BERMUDA - Página1.csv', encoding='latin-1', delimiter=',')
     st.header('Gráficos')
     st.dataframe(df)
     # Criar uma nova coluna 'Categoria'
