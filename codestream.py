@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd 
 import plotly.express as px
-
+import matplotlib.pyplot as plt
 
 # Sidebar (Menu Lateral)
 page = st.sidebar.selectbox("Escolha a Página", ["Visão Geral", "Filtros e Dados"])
@@ -37,10 +37,10 @@ def show_overview():
 
 def show_filters_data():
     st.header("Filtros e Dados")
-    df_blazer = pd.read_csv('BLAZER - Página1.csv', encoding='latin-1', delimiter=',')
-    df = pd.read_csv('BERMUDA - Página1.csv', encoding='latin-1', delimiter=',') 
+    df = pd.read_csv('BLAZER - Página1.csv', encoding='latin-1', delimiter=',')
     st.header('Gráficos')
     st.dataframe(df)
+    
     # Criar uma nova coluna 'Categoria'
     #df['Categoria'] = df['DESCRIÇÃO']
     
