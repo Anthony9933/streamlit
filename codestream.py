@@ -48,10 +48,6 @@ def show_filters_data():
     st.header('Gráficos')
     st.dataframe(df)
 
-# Exemplo de uso
-show_filters_data()
-
-
 # Página de Visão Geral
 if page == "Visão Geral":
     show_overview()
@@ -60,9 +56,3 @@ if page == "Visão Geral":
 elif page == "Filtros e Dados":
     show_filters_data()
     
-# Página de Filtros de acidentes
-#elif page == "Gráficos de Acidentes e Casualidades ao Longo do Tempo":
-    #show_graphs()
-
-#elif page == "Número de Acidentes por Hora do Dia":
-    #show_accidents_by_hour()
