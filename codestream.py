@@ -48,6 +48,22 @@ def show_filters_data():
     st.header('Gráficos')
     st.dataframe(df)
 ###
+     # Lista de arquivos CSV
+    arquivos = ['dados (8).csv']
+    
+    # Lendo e concatenando os DataFrames de todos os arquivos CSV
+    dfs = []
+    for arquivo in arquivos:
+        df_temp = pd.read_csv(arquivo, encoding='latin-1', delimiter=',')
+        st.write(f"Colunas do arquivo {arquivo}: {df_temp.columns.tolist()}")
+        dfs.append(df_temp)
+    
+    df = pd.concat(dfs)
+    
+    # Verifique se a coluna 'Data' está presente
+    if 'Data' not in df.columns:
+        st.error("A coluna 'Data' não foi encontrada nos arquivos CSV.")
+        return
        
     # Convertendo a coluna de data para datetime
     df['Data'] = pd.to_datetime(df['Data'], format='%d/%m/%Y')
