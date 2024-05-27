@@ -37,15 +37,21 @@ def show_overview():
 
 def show_filters_data():
     st.header("Filtros e Dados")
-    df = pd.read_csv('BLAZER - Página1.csv', encoding='latin-1', delimiter=',')
-    df = pd.read_csv('BERMUDA - Página1.csv', encoding='latin-1', delimiter=',')
-    df = pd.read_csv('BLUSA - Página1.csv', encoding='latin-1', delimiter=',')
-    df = pd.read_csv('CALÇA - Página1.csv', encoding='latin-1', delimiter=',')
-    df = pd.read_csv('CAMISA - Página1.csv', encoding='latin-1', delimiter=',')
+   
+    # Lista de arquivos CSV
+    arquivos = ['BLAZER - Página1.csv', 'BERMUDA - Página1.csv', 'BLUSA - Página1.csv', 'CALÇA - Página1.csv', 'CAMISA - Página1.csv']
+    
+    # Lendo e concatenando os DataFrames de todos os arquivos CSV
+    dfs = [pd.read_csv(arquivo, encoding='latin-1', delimiter=',') for arquivo in arquivos]
+    df = pd.concat(dfs)
+    
     st.header('Gráficos')
     st.dataframe(df)
-    
-    
+
+# Exemplo de uso
+show_filters_data()
+
+
 # Página de Visão Geral
 if page == "Visão Geral":
     show_overview()
