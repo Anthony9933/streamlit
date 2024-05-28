@@ -88,14 +88,7 @@ def show_filters_data():
 
     # Criar gráfico de evolução das vendas
     fig = px.line(data, x='Data', y='Quantidade', title='Evolução de Vendas')
-    
-    # Exibir gráfico
-    st.plotly_chart(fig)
-    st.divider()
-    
-    # Leitura da base de dados
-    df = pd.read_csv('dados_(8).csv')
-
+    ##
     # Convertendo a coluna 'Data' para datetime
     df['Data'] = pd.to_datetime(df['Data'])
 
@@ -109,7 +102,7 @@ def show_filters_data():
     vendas_por_data = df.groupby('Data')['Quantidade'].sum().reset_index()
 
     # Configurando o estilo do gráfico
-    sns.set(style="whitegrid")
+    sns.set(style="dark")
 
     # Criando o gráfico de linha
     plt.figure(figsize=(14, 7))
@@ -122,6 +115,13 @@ def show_filters_data():
 
     # Mostrando o gráfico
     plt.show()
+    ##
+    # Exibir gráfico
+    st.plotly_chart(fig)
+    st.divider()
+
+
+
 
 #####
 
