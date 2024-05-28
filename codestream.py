@@ -49,56 +49,9 @@ def show_filters_data():
     st.dataframe(df)
 
 ###FASE DE TESTE PARA GRAFICOS###
-    
-   # Lista de arquivos CSV
-    arquivos = ['dados (8).csv']
-    
-    # Lendo e concatenando os DataFrames de todos os arquivos CSV
-    dfs = []
-    for arquivo in arquivos:
-        df_temp = pd.read_csv(arquivo, encoding='latin-1', delimiter=',')
-        st.write(f"Colunas do arquivo {arquivo}: {df_temp.columns.tolist()}")
-        dfs.append(df_temp)
-    
-    df = pd.concat(dfs)
-    
-    # Verifique se a coluna 'Data' está presente
-    if 'Data' not in df.columns:
-        st.error("A coluna 'Data' não foi encontrada nos arquivos CSV.")
-        return
-    
-    # Convertendo a coluna de data para datetime, lidando com erros, e extraindo mês e ano
-    df['Data'] = pd.to_datetime(df['Data'], format='%d/%m/%Y', errors='coerce')
-    
-    # Identificar e exibir valores inválidos na coluna 'Data'
-    invalid_dates = df[df['Data'].isna()]
-    if not invalid_dates.empty:
-        st.warning("Foram encontrados valores inválidos na coluna 'Data'.")
-        st.dataframe(invalid_dates)
-    
-    # Filtrando linhas com valores válidos na coluna 'Data'
-    df = df.dropna(subset=['Data'])
-    
-    # Extraindo mês e ano
-    df['MesAno'] = df['Data'].dt.to_period('M').dt.to_timestamp()
-        
-    # Agrupando as vendas por mês e ano
-    vendas_por_mes = df.groupby('MesAno')['Vendas'].sum().reset_index()
-    
-    # Ordenando os dados por data
-    vendas_por_mes = vendas_por_mes.sort_values('MesAno')
-    
-    # Criando o gráfico de evolução de vendas ao longo do tempo
-    fig = px.line(vendas_por_mes, x='MesAno', y='Vendas', title='Evolução de Vendas ao Longo do Tempo')
-    
-    # Exibindo o gráfico e os dados
-    st.header('Gráficos')
-    st.plotly_chart(fig)
-    st.dataframe(df)
+
 
 #####
-
-   
 
 
 # Página de Visão Geral
