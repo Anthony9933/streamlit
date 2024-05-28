@@ -49,7 +49,20 @@ def show_filters_data():
     st.dataframe(df)
 
 ###FASE DE TESTE PARA GRAFICOS###
+# Título do aplicativo
+st.title('Evolução de Vendas ao Longo do Tempo')
 
+# Carregar dados
+data = pd.read_csv('dados (8).csv')
+
+# Exibir tabela de dados
+st.write(data)
+
+# Criar gráfico de evolução das vendas
+fig = px.line(data, x='Date', y='Sales', title='Evolução de Vendas')
+
+# Exibir gráfico
+st.plotly_chart(fig)
 
 #####
 
