@@ -66,7 +66,30 @@ def show_filters_data():
     
 
 #####
+def gerar_vendas_variadas(base, incremento_inicial, incremento_final, variacao):
+    base['Data'] = pd.to_datetime(base['Data'])
+    base = base.sort_values(by='Data')
+    base = base.reset_index(drop=True)
 
+    quantidade_inicial = base.loc[0, 'Quantidade']
+    meses = len(base)
+
+    np.random.seed(42)  # Para reprodutibilidade
+
+    incremento = np.linspace(incremento_inicial, incremento_final, meses)
+    variacao_aleatoria = np.random.normal(loc=0, scale=variacao, size=meses)
+
+    vendas_ajustadas = quantidade_inicial + incremento + variacao_aleatoria
+    vendas_ajustadas[vendas_ajustadas < 0] = 0  # Garantir que não haja vendas negativas
+
+    base['Quantidade'] = vendas_ajustadas.round().astype(int)
+    return base
+
+# Aplicar a função na base de dados
+df_ajustada = gerar_vendas_variadas(df, incremento_inicial=10, incremento_final=200, variacao=30)
+
+# Verificar o resultado
+print(df_ajustada.head())
 
 # Página de Visão Geral
 if page == "Visão Geral":
