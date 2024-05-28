@@ -47,7 +47,7 @@ def show_filters_data():
     
     st.header('Gráficos')
     st.dataframe(df)
-st.divider()
+    st.divider()
 ###FASE DE TESTE PARA GRAFICOS###
 
 
