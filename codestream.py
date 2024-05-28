@@ -81,12 +81,7 @@ def show_filters_data():
     
     # Extraindo mês e ano
     df['MesAno'] = df['Data'].dt.to_period('M').dt.to_timestamp()
-    
-    # Verifique se a coluna 'Vendas' está presente
-    if 'Vendas' not in df.columns:
-        st.error("A coluna 'Vendas' não foi encontrada nos arquivos CSV.")
-        return
-    
+        
     # Agrupando as vendas por mês e ano
     vendas_por_mes = df.groupby('MesAno')['Vendas'].sum().reset_index()
     
@@ -104,7 +99,7 @@ def show_filters_data():
 #####
 
        # Lista de arquivos CSV
-    arquivos = ['BLAZER - Página1.csv', 'BERMUDA - Página1.csv', 'BLUSA - Página1.csv', 'CALÇA - Página1.csv', 'CAMISA - Página1.csv', 'CROPPED - Página1.csv', 'SAIA - Página1.csv', 'SHORT - Página1.csv', 'T-SHIRT - Página1.csv']
+    arquivos = ['dados (8).csv']
     
     # Lendo e concatenando os DataFrames de todos os arquivos CSV
     dfs = []
