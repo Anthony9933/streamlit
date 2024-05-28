@@ -75,6 +75,7 @@ def show_filters_data():
     
     # Exibir gráfico
     st.plotly_chart(fig)
+    st.divider()
    
 # Leitura da base de dados
 df = pd.read_csv('dados (8).csv')
