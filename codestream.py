@@ -59,10 +59,11 @@ def show_filters_data():
     st.write(data)
 
     # Criar gráfico de evolução das vendas
-    fig = px.line(data, x='Data', y='PdVenda', title='Evolução de Vendas')
-
+    fig = px.line(data, x='Data', y='Quantidade', title='Evolução de Vendas')
+    
     # Exibir gráfico
     st.plotly_chart(fig)
+    
 
 #####
 
