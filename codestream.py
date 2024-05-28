@@ -50,7 +50,11 @@ def show_filters_data():
     st.dataframe(df)
     st.divider()
 
-    # Carregar a base de dados
+    ###FASE DE TESTE PARA GRAFICOS###
+    # Título do aplicativo
+    st.title('Evolução de Vendas ao Longo do Tempo')
+
+    # Carregar dados
     data = pd.read_csv('dados (8).csv')
 
     # Modificar os valores da quantidade de roupas vendidas
@@ -61,13 +65,6 @@ def show_filters_data():
     
     # Carregar a base de dados
     data = pd.read_csv('dados_(8).csv')
-
-    ###FASE DE TESTE PARA GRAFICOS###
-    # Título do aplicativo
-    st.title('Evolução de Vendas ao Longo do Tempo')
-
-    # Carregar dados
-    data = pd.read_csv('dados (8).csv')
 
     # Exibir tabela de dados
     st.write(data)
