@@ -55,6 +55,12 @@ def show_filters_data():
 
     # Modificar os valores da quantidade de roupas vendidas
     data['Quantidade'] = np.random.randint(1, 43, size=len(data))
+    
+    # Salvar a base de dados modificada
+    data.to_csv('dados_(8).csv', index=False)
+    
+    # Carregar a base de dados
+    data = pd.read_csv('dados_(8).csv')
 
     ###FASE DE TESTE PARA GRAFICOS###
     # Título do aplicativo
