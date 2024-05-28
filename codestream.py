@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd 
 import plotly.express as px
 import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Sidebar (Menu Lateral)
@@ -74,7 +75,36 @@ def show_filters_data():
     
     # Exibir gráfico
     st.plotly_chart(fig)
-    
+   
+# Leitura da base de dados
+df = pd.read_csv('dados (8).csv')
+
+# Convertendo a coluna 'Data' para datetime
+df['Data'] = pd.to_datetime(df['Data'])
+
+# Ordenar a base de dados pela data
+df = df.sort_values(by='Data')
+
+# Garantir que a quantidade de itens vendidos seja crescente
+df['Quantidade'] = df['Quantidade'].cummax()
+
+# Agrupando por data e somando a quantidade de itens vendidos
+vendas_por_data = df.groupby('Data')['Quantidade'].sum().reset_index()
+
+# Configurando o estilo do gráfico
+sns.set(style="whitegrid")
+
+# Criando o gráfico de linha
+plt.figure(figsize=(14, 7))
+sns.lineplot(x='Data', y='Quantidade', data=vendas_por_data, marker='o')
+
+# Adicionando título e labels
+plt.title('Evolução das Vendas ao Longo do Tempo', fontsize=16)
+plt.xlabel('Data', fontsize=14)
+plt.ylabel('Quantidade de Itens Vendidos', fontsize=14)
+
+# Mostrando o gráfico
+plt.show()
 
 #####
 
