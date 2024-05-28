@@ -61,15 +61,15 @@ def show_filters_data():
     # Modificar os valores da quantidade de roupas vendidas
     data['Quantidade'] = np.random.randint(1, 43, size=len(data))
 
-# Função para modificar a data
-def modificar_data(data):
-    # Converter a coluna de data para o tipo datetime, se ainda não for
-    data['Data'] = pd.to_datetime(data['Data'])
-    
-    # Modificar a data para ter como dia o dia do mês, como mês o número do mês e como ano o ano
-    data['Data'] = data['Data'].apply(lambda x: pd.Timestamp(year=x.year, month=x.month, day=x.day))
-    
-    return data
+    # Função para modificar a data
+    def modificar_data(data):
+        # Converter a coluna de data para o tipo datetime, se ainda não for
+        data['Data'] = pd.to_datetime(data['Data'])
+        
+        # Modificar a data para ter como dia o dia do mês, como mês o número do mês e como ano o ano
+        data['Data'] = data['Data'].apply(lambda x: pd.Timestamp(year=x.year, month=x.month, day=x.day))
+        
+        return data
 
     # Aplicar a função aos dados
     data = modificar_data(data)
