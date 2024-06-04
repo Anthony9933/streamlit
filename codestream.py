@@ -52,7 +52,7 @@ def show_filters_data():
     st.divider()
 
     ###FASE DE TESTE PARA GRAFICOS###
-    # Título do aplicativo
+    
     st.title('Evolução de Vendas ao Longo do Tempo')
 
     # Carregar dados
@@ -87,7 +87,7 @@ def show_filters_data():
     st.write(data)
 
     # Criar gráfico de evolução das vendas
-    fig = px.line(data, x='Data', y='Quantidade', title='Evolução de Vendas')
+    fig = px.line(data, x='PdVenda', y='Data', title='Evolução de Vendas')
     
     # Exibir gráfico
     st.plotly_chart(fig)
