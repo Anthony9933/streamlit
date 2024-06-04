@@ -92,7 +92,46 @@ def show_filters_data():
     # Exibir gráfico
     st.plotly_chart(fig)
     st.divider()
-    
+    # Título do Streamlit
+    st.title('Evolução de Vendas ao Longo do Tempo')
+
+    # Carregar dados
+    data = pd.read_csv('dados (8).csv')
+
+    # Modificar os valores da quantidade de roupas vendidas
+    data['Quantidade'] = np.random.randint(1, 43, size=len(data))
+
+    # Função para modificar a data
+    def modificar_data(data):
+        # Converter a coluna de data para o tipo datetime, se ainda não for
+        data['Data'] = pd.to_datetime(data['Data'])
+        
+        # Modificar a data para ter como dia o dia do mês, como mês o número do mês e como ano o ano
+        data['Data'] = data['Data'].apply(lambda x: pd.Timestamp(year=x.year, month=x.month, day=x.day))
+        
+        return data
+
+    # Aplicar a função aos dados
+    data = modificar_data(data)
+
+    # Exibir os dados atualizados
+    st.write(data)
+
+    # Salvar a base de dados modificada
+    data.to_csv('dados_(8).csv', index=False)
+
+    # Carregar a base de dados
+    data = pd.read_csv('dados_(8).csv')
+
+    # Exibir tabela de dados
+    st.write(data)
+
+    # Criar gráfico de evolução das vendas
+    fig = px.line(data, x='PdVenda', y='Data', title='Evolução de Vendas', labels={'PdVenda':'Vendas', 'Data':'Tempo'})
+
+    # Exibir gráfico
+    st.plotly_chart(fig)
+    st.divider()
 
 # Página de Visão Geral
 if page == "Visão Geral":
