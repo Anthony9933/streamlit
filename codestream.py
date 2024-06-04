@@ -1,143 +1,142 @@
 import streamlit as st
-import pandas as pd 
+import pandas as pd
 import plotly.express as px
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
 
-# Sidebar (Menu Lateral)
+# Configuração da barra lateral
 page = st.sidebar.selectbox("Escolha a Página", ["Visão Geral", "Filtros e Dados"])
+
+# Função para carregar os dados
+@st.cache_data
+def load_data():
+    # Substitua 'sua_base_de_dados_ajustada.csv' pelo caminho para o seu arquivo de dados
+    df = pd.read_csv('adjusted_data4.csv')
+    df['Data'] = pd.to_datetime(df['Data'], format='%Y-%m-%d')
+    return df
+
+# Função para mostrar a visão geral
 def show_overview():
-    
-    # Visão Geral do Projeto
     st.header("Visão Geral do Projeto")
-    st.write("Bem-vindo ao projeto de Visualização de dados da loja Moda Antiga! Este projeto gira em torno da análise e apresentação "
-             "de dados do estoque e de vendas de produtos da loja Moda Antiga. O conjunto de dados contém várias colunas fornecendo insights "
-             "sobre os produtos e informações relativas a vendas, incluindo data, produtos mais vendidos, melhores e piores meses de venda.")
-    
-    # Como Funciona
+    st.write("""
+        Bem-vindo ao projeto de Visualização de dados da loja Moda Antiga! Este projeto gira em torno da análise e apresentação 
+        de dados do estoque e de vendas de produtos da loja Moda Antiga. O conjunto de dados contém várias colunas fornecendo insights 
+        sobre os produtos e informações relativas a vendas, incluindo data, produtos mais vendidos, melhores e piores meses de venda.
+    """)
+
     st.header("Como Funciona")
-    st.write("O projeto utiliza um conjunto de dados com informações sobre as vendas e o estoque da loja. Aqui está uma breve visão "
-             "geral dos principais componentes:")
-    
-    # Objetivo do Projeto
+    st.write("""
+        O projeto utiliza um conjunto de dados com informações sobre as vendas e o estoque da loja. Aqui está uma breve visão 
+        geral dos principais componentes:
+    """)
+
     st.header("Objetivo do Projeto")
-    st.write("O principal objetivo deste projeto é obter insights pela análise dos dados e gráficos criados. Isso inclui entender "
-             "o que os dados estão nos dizendo, identificar e explorar padrões dos compradores "
-             "prevendo e criando estratégias para aumentar as vendas.")
-    
-    # Como Utilizar
+    st.write("""
+        O principal objetivo deste projeto é obter insights pela análise dos dados e gráficos criados. Isso inclui entender 
+        o que os dados estão nos dizendo, identificar e explorar padrões dos compradores 
+        prevendo e criando estratégias para aumentar as vendas.
+    """)
+
     st.header("Como Utilizar")
-    st.write("Para explorar o projeto, você pode navegar por diferentes seções usando a barra lateral. As principais seções incluem:")
-      
+    st.write("""
+        Para explorar o projeto, você pode navegar por diferentes seções usando a barra lateral. As principais seções incluem:
+    """)
+    st.markdown("- *Visualização do Conjunto de Dados*: Oferece uma visão rápida dos dados disponíveis.")
+    st.markdown("- *Descrição das Colunas*: Explica o significado de cada coluna no conjunto de dados.")
+    st.markdown("- *Estatísticas Resumidas*: Apresenta informações estatísticas sobre o conjunto de dados.")
+    
+
     st.header("Conclusão")
-    st.write("Sinta-se à vontade para analisar o conjunto de dados, obter insights e tirar conclusões significativas a partir "
-               "dos dados apresentados. Para análises específicas ou dúvidas, novos recursos podem ser incorporados com base nos "
-               "objetivos do seu projeto.")
-  
+    st.write("""
+        Sinta-se à vontade para analisar o conjunto de dados, obter insights e tirar conclusões significativas a partir 
+        dos dados apresentados. Para análises específicas ou dúvidas, novos recursos podem ser incorporados com base nos 
+        objetivos do seu projeto.
+    """)
+
     st.write("Aproveite a exploração do projeto!")
 
+# Função para mostrar filtros e dados
 def show_filters_data():
-    st.header("Filtros e Dados")
-    st.warning("⚠️ ESTAMOS QUASE CONCLUINDO A FASE DE TESTES! ASS: DESENVOLVEDORES ⚠️")
-    # Lista de arquivos CSV
-    arquivos = ['BLAZER - Página1.csv', 'BERMUDA - Página1.csv', 'BLUSA - Página1.csv', 'CALÇA - Página1.csv', 'CAMISA - Página1.csv', 'CROPPED - Página1.csv', 'SAIA - Página1.csv', 'SHORT - Página1.csv', 'T-SHIRT - Página1.csv']
-    
-    # Lendo e concatenando os DataFrames de todos os arquivos CSV
-    dfs = [pd.read_csv(arquivo, encoding='latin-1', delimiter=',') for arquivo in arquivos]
-    df = pd.concat(dfs)
-    
-    st.header('Gráficos')
-    st.dataframe(df)
-    st.divider()
+    # Carregar os dados
+    df = load_data()
 
-    ###FASE DE TESTE PARA GRAFICOS###
-    
-    st.title('Evolução de Vendas ao Longo do Tempo')
+    # Processar os dados para obter vendas anuais e mensais
+    df['Ano'] = df['Data'].dt.year
+    df['Mes'] = df['Data'].dt.month
+    df['Lucro'] = (df['PdVenda'] - df['PdCusto']) * df['Quantidade']
 
-    # Carregar dados
-    data = pd.read_csv('dados (8).csv')
+    # Agrupar por ano e mês e somar as vendas
+    vendas_mensais = df.groupby(['Ano', 'Mes'])['Quantidade'].sum().reset_index()
 
-    # Modificar os valores da quantidade de roupas vendidas
-    data['Quantidade'] = np.random.randint(1, 43, size=len(data))
+    # Criar uma coluna de data fictícia para plotar
+    vendas_mensais['AnoMes'] = vendas_mensais.apply(lambda row: f"{row['Ano']}-{row['Mes']:02d}-01", axis=1)
+    vendas_mensais['AnoMes'] = pd.to_datetime(vendas_mensais['AnoMes'])
 
-    # Função para modificar a data
-    def modificar_data(data):
-        # Converter a coluna de data para o tipo datetime, se ainda não for
-        data['Data'] = pd.to_datetime(data['Data'])
-        
-        # Modificar a data para ter como dia o dia do mês, como mês o número do mês e como ano o ano
-        data['Data'] = data['Data'].apply(lambda x: pd.Timestamp(year=x.year, month=x.month, day=x.day))
-        
-        return data
+    # Configurar o título da aplicação
+    st.title('Evolução das Vendas ao Longo dos Anos e Meses')
 
-    # Aplicar a função aos dados
-    data = modificar_data(data)
+    # Criar o gráfico de evolução das vendas
+    fig = px.line(vendas_mensais, x='AnoMes', y='Quantidade', title='Evolução das Vendas Mensais', labels={'AnoMes': 'Ano e Mês', 'Quantidade': 'Vendas Totais'})
 
-    # Exibir os dados atualizados
-    print(data)
-    
-    # Salvar a base de dados modificada
-    data.to_csv('dados_(8).csv', index=False)
-    
-    # Carregar a base de dados
-    data = pd.read_csv('dados_(8).csv')
-
-    # Exibir tabela de dados
-    st.write(data)
-
-    # Criar gráfico de evolução das vendas
-    fig = px.line(data, x='PdVenda', y='Data', title='Evolução de Vendas')
-    
-    # Exibir gráfico
+    # Mostrar o gráfico no Streamlit
     st.plotly_chart(fig)
-    st.divider()
-    # Título do Streamlit
-    st.title('Evolução de Vendas ao Longo do Tempo')
 
-    # Carregar dados
-    data = pd.read_csv('dados (8).csv')
+    # Multiselect para escolher tecidos
+    tecidos = ['Flanela', 'Tactel', 'Cetim', 'Jeans', 'Seda', 'Algodão', 'Viscose', 'Poliéster', 'Sarja', 'Tricô', 'Lã', 'Couro', 'Moletom', 'Malha', 'Chiffon', 'Linho']
+    selected_tecidos = st.multiselect("Selecione os Tecidos", tecidos, default=tecidos)
 
-    # Modificar os valores da quantidade de roupas vendidas
-    data['Quantidade'] = np.random.randint(1, 43, size=len(data))
+    # Multiselect para escolher estações
+    estacoes = ['Verão', 'Outono', 'Inverno', 'Primavera']
+    selected_estacoes = st.multiselect("Selecione as Estações", estacoes, default=estacoes)
 
-    # Função para modificar a data
-    def modificar_data(data):
-        # Converter a coluna de data para o tipo datetime, se ainda não for
-        data['Data'] = pd.to_datetime(data['Data'])
-        
-        # Modificar a data para ter como dia o dia do mês, como mês o número do mês e como ano o ano
-        data['Data'] = data['Data'].apply(lambda x: pd.Timestamp(year=x.year, month=x.month, day=x.day))
-        
-        return data
+    # Multiselect para escolher anos
+    anos = df['Ano'].unique().tolist()
+    selected_anos = st.multiselect("Selecione os Anos", anos, default=anos)
 
-    # Aplicar a função aos dados
-    data = modificar_data(data)
+    # Filtrar os dados com base na seleção
+    df_filtered = df[(df['Tecido'].isin(selected_tecidos)) & (df['Estacao'].isin(selected_estacoes)) & (df['Ano'].isin(selected_anos))]
 
-    # Exibir os dados atualizados
-    st.write(data)
+    # Agrupar por tecido e calcular o lucro total
+    lucro_por_tecido = df_filtered.groupby('Tecido')['Lucro'].sum().reset_index()
 
-    # Salvar a base de dados modificada
-    data.to_csv('dados_(8).csv', index=False)
+    # Agrupar por estação e calcular o lucro total
+    lucro_por_estacao = df_filtered.groupby('Estacao')['Lucro'].sum().reset_index()
 
-    # Carregar a base de dados
-    data = pd.read_csv('dados_(8).csv')
+    df_filtered['VendaTotal'] = df_filtered['Quantidade'] * df_filtered['PdVenda']
 
-    # Exibir tabela de dados
-    st.write(data)
+    # Agrupar por ano, mês e tecido
+    vendas_por_tecido = df_filtered.groupby(['Ano', 'Mes', 'Tecido'])['VendaTotal'].sum().reset_index()
 
-    # Criar gráfico de evolução das vendas
-    fig = px.line(data, x='PdVenda', y='Data', title='Evolução de Vendas', labels={'PdVenda':'Vendas', 'Data':'Tempo'})
+    # Agrupar por ano e estação
+    vendas_por_estacao = df_filtered.groupby(['Ano', 'Estacao'])['VendaTotal'].sum().reset_index()
 
-    # Exibir gráfico
-    st.plotly_chart(fig)
-    st.divider()
+    # Criar colunas de data fictícia para plotar
+    vendas_por_tecido['AnoMes'] = vendas_por_tecido.apply(lambda row: f"{row['Ano']}-{row['Mes']:02d}-01", axis=1)
+    vendas_por_tecido['AnoMes'] = pd.to_datetime(vendas_por_tecido['AnoMes'])
+
+    # Gráfico de evolução das vendas por tecido
+    fig_tecido2 = px.line(vendas_por_tecido, x='AnoMes', y='VendaTotal', color='Tecido', title='Evolução das Vendas por Tecido',
+                         labels={'AnoMes': 'Ano e Mês', 'VendaTotal': 'Vendas Totais', 'Tecido': 'Tecido'})
+
+    # Gráfico de vendas por estação
+    fig_estacao2 = px.line(vendas_por_estacao, x='Ano', y='VendaTotal', color='Estacao', title='Evolução das Vendas por Estação',
+                          labels={'Ano': 'Ano', 'VendaTotal': 'Vendas Totais', 'Estacao': 'Estação'})
+
+    # Mostrar os gráficos no Streamlit
+    st.plotly_chart(fig_tecido2)
+    st.plotly_chart(fig_estacao2)
+    
+    # Gráfico de lucros por tecido
+    fig_tecido = px.bar(lucro_por_tecido, x='Tecido', y='Lucro', title='Lucro Total por Tecido', labels={'Tecido': 'Tecido', 'Lucro': 'Lucro Total'})
+
+    # Gráfico de lucros por estação
+    fig_estacao = px.bar(lucro_por_estacao, x='Estacao', y='Lucro', title='Lucro Total por Estação', labels={'Estacao': 'Estação', 'Lucro': 'Lucro Total'})
+
+    # Mostrar os gráficos no Streamlit
+    st.plotly_chart(fig_tecido)
+    st.plotly_chart(fig_estacao)
 
 # Página de Visão Geral
 if page == "Visão Geral":
     show_overview()
-
-
+# Página de Filtros e Dados
 elif page == "Filtros e Dados":
     show_filters_data()
-    
