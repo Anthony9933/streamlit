@@ -39,7 +39,7 @@ def show_overview():
 
 def show_filters_data():
     st.header("Filtros e Dados")
-    st.warning("⚠️ ESTAMOS EM FASE DE TESTES! ASS: DESENVOLVEDORES ⚠️")
+    st.warning("⚠️ ESTAMOS QUASE CONCLUINDO A FASE DE TESTES! ASS: DESENVOLVEDORES ⚠️")
     # Lista de arquivos CSV
     arquivos = ['BLAZER - Página1.csv', 'BERMUDA - Página1.csv', 'BLUSA - Página1.csv', 'CALÇA - Página1.csv', 'CAMISA - Página1.csv', 'CROPPED - Página1.csv', 'SAIA - Página1.csv', 'SHORT - Página1.csv', 'T-SHIRT - Página1.csv']
     
@@ -92,7 +92,24 @@ def show_filters_data():
     # Exibir gráfico
     st.plotly_chart(fig)
     st.divider()
-   
+    
+    def make_heatmap(input_df, input_y, input_x, input_color, input_color_theme):
+        heatmap = alt.Chart(input_df).mark_rect().encode(
+                y=alt.Y(f'{input_y}:O', axis=alt.Axis(title="Year", titleFontSize=18, titlePadding=15, titleFontWeight=900, labelAngle=0)),
+                x=alt.X(f'{input_x}:O', axis=alt.Axis(title="", titleFontSize=18, titlePadding=15, titleFontWeight=900)),
+                color=alt.Color(f'max({input_color}):Q',
+                                legend=None,
+                                scale=alt.Scale(scheme=input_color_theme)),
+                stroke=alt.value('black'),
+                strokeWidth=alt.value(0.25),
+            ).properties(width=900
+            ).configure_axis(
+            labelFontSize=12,
+            titleFontSize=12
+            ) 
+        # height=300
+        return heatmap
+
 # Página de Visão Geral
 if page == "Visão Geral":
     show_overview()
